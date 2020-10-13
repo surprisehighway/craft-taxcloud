@@ -1,0 +1,59 @@
+{
+    "name": "surprisehighway/tax-cloud",
+    "description": "TaxCloud integration for Craft Commerce",
+    "type": "craft-plugin",
+    "version": "1.0.0",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "taxcloud"
+    ],
+    "support": {
+        "docs": "https://github.com/surprisehighway/craft-taxcloud/tax-cloud/blob/master/README.md",
+        "issues": "https://github.com/surprisehighway/craft-taxcloud/tax-cloud/issues"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Surprise Highway",
+            "homepage": "https://surprisehighway.com"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.0.0",
+        "taxcloud/client-php": "*"
+    },
+    "require-dev": {
+      "craftcms/cms": "^3.2.0",
+      "codeception/codeception": "^3.0",
+      "vlucas/phpdotenv": "^3.0"
+    },
+    "minimum-stability": "dev",
+      "prefer-stable": true,
+      "repositories": [
+        {
+          "type": "path",
+          "url": "lib/taxcloud-client"
+        }
+      ],
+    "autoload": {
+        "psr-4": {
+          "surprisehighway\\taxcloud\\": "src/",
+          "Swagger\\Client\\" : "lib/taxcloud-client/lib/"
+        }
+    },
+    "extra": {
+        "name": "TaxCloud",
+        "handle": "tax-cloud",
+        "developer": "Surprise Highway",
+        "developerUrl": "https://surprisehighway.com",
+        "documentationUrl": "https://github.com/surprisehighway/craft-taxcloud/tax-cloud/blob/master/README.md",
+        "changelogUrl": "https://raw.githubusercontent.com/surprisehighway/craft-taxcloud/tax-cloud/master/CHANGELOG.md",
+        "components": {
+            "api": "surprisehighway\\taxcloud\\services\\Api"
+        },
+        "class": "surprisehighway\\taxcloud\\TaxCloud"
+    }
+}
