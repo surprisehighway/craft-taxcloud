@@ -18,7 +18,7 @@ To install the plugin, follow these instructions.
 
 2. Then tell Composer to load the plugin:
 
-        composer require surprisehighway/craft-taxcloud/tax-cloud
+        composer require surprisehighway/craft-taxcloud
 
 3. In the Control Panel, go to Settings → Plugins and click the “Install” button for TaxCloud.
 

@@ -22,26 +22,12 @@
         }
     ],
     "require": {
-        "craftcms/cms": "^3.0.0",
-        "taxcloud/client-php": "*"
+        "craftcms/cms": "^3.4.0",
+        "craftcms/commerce": "^3.1.0",
     },
-    "require-dev": {
-      "craftcms/cms": "^3.2.0",
-      "codeception/codeception": "^3.0",
-      "vlucas/phpdotenv": "^3.0"
-    },
-    "minimum-stability": "dev",
-      "prefer-stable": true,
-      "repositories": [
-        {
-          "type": "path",
-          "url": "lib/taxcloud-client"
-        }
-      ],
     "autoload": {
         "psr-4": {
           "surprisehighway\\taxcloud\\": "src/",
-          "Swagger\\Client\\" : "lib/taxcloud-client/lib/"
         }
     },
     "extra": {
@@ -49,8 +35,8 @@
         "handle": "tax-cloud",
         "developer": "Surprise Highway",
         "developerUrl": "https://surprisehighway.com",
-        "documentationUrl": "https://github.com/surprisehighway/craft-taxcloud/tax-cloud/blob/master/README.md",
-        "changelogUrl": "https://raw.githubusercontent.com/surprisehighway/craft-taxcloud/tax-cloud/master/CHANGELOG.md",
+        "documentationUrl": "https://github.com/surprisehighway/craft-taxcloud/blob/master/README.md",
+        "changelogUrl": "https://raw.githubusercontent.com/surprisehighway/craft-taxcloud/master/CHANGELOG.md",
         "components": {
             "api": "surprisehighway\\taxcloud\\services\\Api"
         },
