@@ -1,6 +1,6 @@
 <?php
 
-// This is an example config. Rename and move to config/tax-cloud.php
+// This is an example config. Rename and move to config/taxcloud.php
 
 return [
 	'apiId' => getenv('TAXCLOUD_API_ID'),

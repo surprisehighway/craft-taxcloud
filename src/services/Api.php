@@ -149,7 +149,7 @@ class Api extends Component
     /* 
      * Ping
      *
-     * You can debug connectivity by loading teh cp url: /admin/actions/tax-cloud/categories/ping
+     * You can debug connectivity by loading teh cp url: /admin/actions/taxcloud/categories/ping
      *
      * @see https://dev.taxcloud.com/taxcloud/reference/1-getting-started/ping
      */

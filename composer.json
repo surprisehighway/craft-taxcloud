@@ -1,5 +1,5 @@
 {
-    "name": "surprisehighway/tax-cloud",
+    "name": "surprisehighway/craft-taxcloud",
     "description": "TaxCloud integration for Craft Commerce",
     "type": "craft-plugin",
     "version": "1.0.0",
@@ -11,8 +11,8 @@
         "taxcloud"
     ],
     "support": {
-        "docs": "https://github.com/surprisehighway/craft-taxcloud/tax-cloud/blob/master/README.md",
-        "issues": "https://github.com/surprisehighway/craft-taxcloud/tax-cloud/issues"
+        "docs": "https://github.com/surprisehighway/craft-taxcloud/blob/master/README.md",
+        "issues": "https://github.com/surprisehighway/craft-taxcloud/issues"
     },
     "license": "MIT",
     "authors": [
@@ -32,7 +32,7 @@
     },
     "extra": {
         "name": "TaxCloud",
-        "handle": "tax-cloud",
+        "handle": "taxcloud",
         "developer": "Surprise Highway",
         "developerUrl": "https://surprisehighway.com",
         "documentationUrl": "https://github.com/surprisehighway/craft-taxcloud/blob/master/README.md",

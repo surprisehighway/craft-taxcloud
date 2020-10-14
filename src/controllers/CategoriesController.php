@@ -58,12 +58,14 @@ class CategoriesController extends Controller
 
     /**
      * Handle a request going to our plugin's actionDoSomething URL,
-     * e.g.: actions/tax-cloud/categories/do-something
+     * e.g.: actions/taxcloud/categories/do-something
      *
      * @return mixed
      */
     public function actionPing(): Response
     {
+        $this->requirePermission('commerce-manageTaxes');
+        
         $response = TaxCloud::$plugin->getApi()->ping();
 
         if(ResponseHelper::getResponseType($response->ResponseType) == 'OK') {
@@ -75,7 +77,7 @@ class CategoriesController extends Controller
 
     /**
      * Handle a request going to our plugin's actionDoSomething URL,
-     * e.g.: actions/tax-cloud/categories/do-something
+     * e.g.: actions/taxcloud/categories/do-something
      *
      * @return mixed
      */

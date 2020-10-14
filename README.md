@@ -40,7 +40,7 @@ TAXCLOUD_API_KEY="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
 ```
 
-2. Create a `config/tax-cloud.php` file using the example found at `vendor/surprisehighway/taxcloud/config.php`
+2. Create a `config/taxcloud.php` file using the example found at `vendor/surprisehighway/taxcloud/config.php`
 
 ```
 <?php
@@ -53,7 +53,7 @@ return [
 ];
 ```
 
-> **TIP** You can check your connection settings by navigating to [your_cp_url]/actions/tax-cloud/categories/ping
+> **TIP:** You can check your connection settings by navigating to [your_cp_url]/actions/taxcloud/categories/ping
 
 ## Step 2: Sync your tax categories
 
@@ -63,7 +63,7 @@ Once the sync is complete **assign the categories you will use to your Product T
 
 ![Screenshot](resources/img/tax-categories.png)
 
-> **Warning** Don't change the tax category handles, they are used to keep the categories in sync so you could potentially cause duplicates. Note that the handle is the actual [TIC code](https://taxcloud.com/TIC) value that is sent to TaxCloud. You can change the name and description. 
+> **Warning:** Don't change the tax category handles, they are used to keep the categories in sync so you could potentially cause duplicates. Note that the handle is the actual [TIC code](https://taxcloud.com/TIC) value that is sent to TaxCloud. You can change the name and description. 
 
 ## Step 3: Check your store location
 
@@ -76,7 +76,7 @@ Once everything is set up tax adjustments will be added to new orders automatica
 
 You can see the full TaxCloud API response in the order line item's `sourceSnapshot`.
 
-> **NOTE** TaxCloud sets the sales tax per line item, so you may want to disable the display of that in your cart templates. The total tax is calculated automatically by Commerce.
+> **NOTE:** TaxCloud sets the sales tax per line item, so you may want to disable the display of that in your cart templates. The total tax is calculated automatically by Commerce.
 
 ### A note about address verification
 
