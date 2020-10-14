@@ -70,23 +70,23 @@ class TaxCloud extends Component implements AdjusterInterface
 		$orderTaxes = $this->_getSalesTax();
 		$adjustments = [];
 		$index = 0;
+		$totalTax = 0;
 
-		foreach ($order->getLineItems() as $lineItem) {
-
-			if(isset($orderTaxes->CartItemsResponse[$index])) {
-				$adjustment = new OrderAdjustment();
-				$adjustment->type = self::ADJUSTMENT_TYPE;
-				$adjustment->name = Craft::t('commerce', 'Tax');
-				$adjustment->amount = $orderTaxes->CartItemsResponse[$index]->TaxAmount;
-				$adjustment->description = '';
-				$adjustment->setOrder($this->_order);
-				$adjustment->setLineItem($lineItem);
-				$adjustment->sourceSnapshot = json_decode(json_encode($orderTaxes), true);
-
-				$adjustments[] = $adjustment;
+		if(isset($orderTaxes->CartItemsResponse)) {
+			
+			foreach ($orderTaxes->CartItemsResponse as $taxLineItem) {
+				$totalTax += $taxLineItem->TaxAmount;
 			}
+			
+			$adjustment = new OrderAdjustment();
+			$adjustment->type = self::ADJUSTMENT_TYPE;
+			$adjustment->name = Craft::t('commerce', 'Tax');
+			$adjustment->amount = $orderTaxes->CartItemsResponse[$index]->TaxAmount;
+			$adjustment->description = '';
+			$adjustment->sourceSnapshot = ['taxcloud' => json_decode(json_encode($orderTaxes), true)];
+			$adjustment->setOrder($this->_order);
 
-			$index++;
+			$adjustments[] = $adjustment;
 		}
 
 		return $adjustments;

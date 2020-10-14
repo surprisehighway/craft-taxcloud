@@ -76,9 +76,9 @@ Got to Commerce → Store Settings → Store Location and make sure the address 
 
 Once everything is set up tax adjustments will be added to new orders automatically based on the line items's Tax Category in the product entry.
 
-You can see the full TaxCloud API response in the order line item's `sourceSnapshot`.
+> **Note:** TaxCloud returns the sales tax per line item, and the plugin sets the total tax as an order adjustment.
 
-> **Note:** TaxCloud sets the sales tax per line item, so you may want to disable the display of that in your cart templates. The total tax is calculated automatically by Commerce.
+The full TaxCloud API response is stored in the order adjustment's `sourceSnapshot` in the `craft_commerce_orderadjustments` database table.
 
 ### A note about address verification
 
