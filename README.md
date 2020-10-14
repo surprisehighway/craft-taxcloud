@@ -78,6 +78,12 @@ You can see the full TaxCloud API response in the order line item's `sourceSnaps
 
 > **NOTE** TaxCloud sets the sales tax per line item, so you may want to disable the display of that in your cart templates. The total tax is calculated automatically by Commerce.
 
+### A note about address verification
+
+The TaxCloud service depends on a valid address to calculate sales Tax. If you are not doing address validation in some other way, you may enable address verification in the plugin by setting the config option `"verifyAddress" => true`.
+
+If address verification is enabled, the plugin will attempt to verify the address using the [TaxCloud API](https://dev.taxcloud.com/taxcloud/guides/2%20Verify%20an%20Address), and if TaxCloud returns a verified address the subsequent tax lookup will use the verified address. The verified address for example will contain the zip+4 even if the user did not enter it, making tax calculation more accurate. **If a verifed address is not matched the tax lookup will still be submitted** per TaxCloud's guidelines.
+
 ## TaxCloud Roadmap
 
 Some things to do, and ideas for potential features:
