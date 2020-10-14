@@ -4,6 +4,8 @@
 
 TaxCloud integration for Craft Commerce
 
+> :warning: The TaxCloud API only supports US destinations. This plugin takes over the built-in tax engine so Commerce will not calculate non-US taxes or use custom tax rules when installed.
+
 ## Requirements
 
 This plugin requires Craft Commerce (Pro edition) 3.1 or later.
@@ -76,7 +78,7 @@ Once everything is set up tax adjustments will be added to new orders automatica
 
 You can see the full TaxCloud API response in the order line item's `sourceSnapshot`.
 
-> **NOTE:** TaxCloud sets the sales tax per line item, so you may want to disable the display of that in your cart templates. The total tax is calculated automatically by Commerce.
+> **Note:** TaxCloud sets the sales tax per line item, so you may want to disable the display of that in your cart templates. The total tax is calculated automatically by Commerce.
 
 ### A note about address verification
 

@@ -101,16 +101,6 @@ class TaxCloud extends Plugin
         parent::init();
         self::$plugin = $this;
 
-        // // Register our CP routes
-        // Event::on(
-        //     UrlManager::class,
-        //     UrlManager::EVENT_REGISTER_CP_URL_RULES,
-        //     function (RegisterUrlRulesEvent $event) {
-        //         $event->rules['cpActionTrigger1'] = 'taxcloud/categories/ping';
-        //         $event->rules['cpActionTrigger2'] = 'taxcloud/categories';
-        //     }
-        // );
-
         // Replace the tax engine for commerce
         Event::on(Taxes::class, Taxes::EVENT_REGISTER_TAX_ENGINE, static function(TaxEngineEvent $event) {
             $event->engine = new TaxCloudEngine;
@@ -123,6 +113,14 @@ class TaxCloud extends Plugin
             function(Event $event) {
                 // @var Order $order
                 $order = $event->sender;
+
+                $country = $order->getShippingAddress()->getCountry()->iso ?? 'US';
+
+                if ($country !== 'US') {
+                    $message = 'Order ' . $order->number . ': Skipping tax capture for non-US destination.';
+                    Craft::info($message, __METHOD__);
+                    return;
+                }
 
                 try {
                     $response = TaxCloud::$plugin->getApi()->authorizedAndCapture([
