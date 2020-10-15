@@ -61,7 +61,7 @@ class TaxCloud extends Component implements AdjusterInterface
 		// Notes: - Estimated shipping address fails without a City
 		//        - TaxCloud only supports address verification and tax lookup for US destinations
 
-		$country = $this->_address->getCountry()->iso ?? 'US';
+		$country = (isset($this->_address)) ? $this->_address->getCountry()->iso : 'US';
 
 		if (!$this->_address || $country !== 'US' || empty($order->getLineItems())) {
 			return [];

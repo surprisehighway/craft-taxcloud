@@ -114,7 +114,7 @@ class TaxCloud extends Plugin
                 // @var Order $order
                 $order = $event->sender;
 
-                $country = $order->getShippingAddress()->getCountry()->iso ?? 'US';
+                $country = (isset($this->_address)) ? $this->_address->getCountry()->iso : 'US';
 
                 if ($country !== 'US') {
                     $message = 'Order ' . $order->number . ': Skipping tax capture for non-US destination.';
