@@ -81,7 +81,7 @@ class TaxCloud extends Component implements AdjusterInterface
 			$adjustment = new OrderAdjustment();
 			$adjustment->type = self::ADJUSTMENT_TYPE;
 			$adjustment->name = Craft::t('commerce', 'Tax');
-			$adjustment->amount = $orderTaxes->CartItemsResponse[$index]->TaxAmount;
+			$adjustment->amount = $totalTax;
 			$adjustment->description = '';
 			$adjustment->sourceSnapshot = ['taxcloud' => json_decode(json_encode($orderTaxes), true)];
 			$adjustment->setOrder($this->_order);
