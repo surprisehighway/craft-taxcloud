@@ -123,6 +123,20 @@ class TaxCloud extends Component implements AdjusterInterface
 		return md5($number . ':' . $lineItems . ':' . $address . ':' . $shipping . ':' . $discount . ':'  . $price);
 	}
 
+	private function _getItemDiscount($productId)
+	{
+		foreach ($this->_order->adjustments as $adjustment) {
+			if($adjustment->type === 'discount') {
+				if ($adjustmentLineItem = $adjustment->getLineItem()) {
+					if($productId === $adjustmentLineItem->purchasable->productId) {
+						return $adjustment->amount;
+					}
+				}
+			}
+		}
+		return false;
+	}
+
 	private function _getSalesTax()
 	{
 		$orderHash = $this->_getOrderHash();
@@ -133,10 +147,11 @@ class TaxCloud extends Component implements AdjusterInterface
 		$index = 0;
 		foreach ($this->_order->getLineItems() as $lineItem) {
 			$category = Plugin::getInstance()->getTaxCategories()->getTaxCategoryById($lineItem->taxCategoryId);
+			$discount = $this->_getItemDiscount($lineItem->purchasable->productId);
 			$lineItems[] = [
 					"Index" => $index,
 					"ItemID" => $lineItem->purchasable->productId,
-					"Price" => $lineItem->salePrice,
+					"Price" => $discount ? $lineItem->salePrice + $discount : $lineItem->salePrice,
 					"Qty" => $lineItem->qty,
 					"TIC" => $category ? $category->handle : null,
 				];
