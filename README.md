@@ -86,6 +86,10 @@ The TaxCloud service depends on a valid address to calculate sales Tax. If you a
 
 If address verification is enabled, the plugin will attempt to verify the address using the [TaxCloud API](https://dev.taxcloud.com/taxcloud/guides/2%20Verify%20an%20Address), and if TaxCloud returns a verified address the subsequent tax lookup will use the verified address. The verified address for example will contain the zip+4 even if the user did not enter it, making tax calculation more accurate. **If a verifed address is not matched the tax lookup will still be submitted** per TaxCloud's guidelines.
 
+### A note about sales and discounts
+
+TaxCloud does not accept separate line item discounts or adjustments. Items on Sale in Craft automatically send the sale price to TaxCloud for tax calculation. Discounts are calculated by the plugin to send the reduced line item price to TaxCloud for tax calculation [per TaxCloud guidelines](https://taxcloud.com/support/applying-discounts). 
+
 ## TaxCloud Roadmap
 
 Some things to do, and ideas for potential features:
@@ -95,6 +99,7 @@ Some things to do, and ideas for potential features:
 - [x] Manage product TICs suing tax categories synced from TaxCloud
 - [x] Live rates from TaxCloud
 - [x] Authorize and Capture orders in TaxCloud for reporting purposes
+- [x] Handle discounts
 - [ ] Handle refunds
 
 Brought to you by [Surprise Highway](https://surprisehighway.com)
