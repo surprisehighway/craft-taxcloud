@@ -51,6 +51,7 @@ return [
 	'apiId' => getenv('TAXCLOUD_API_ID'),
 	'apiKey' => getenv('TAXCLOUD_API_KEY'),
 	'verifyAddress' => false,
+	'enableCapture' => true,
 	'defaultShippingTic' => '11010',
 ];
 ```
