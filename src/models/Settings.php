@@ -45,7 +45,12 @@ class Settings extends Model
     /**
      * @var bool
      */
-    public $verifyAddress = false;
+    public $verifyAddress;
+
+    /**
+     * @var bool
+     */
+    public $enableCapture;
 
     /**
      * @var string
@@ -73,6 +78,8 @@ class Settings extends Model
             ['apiKey', 'string'],
             ['verifyAddress', 'boolean'],
             ['verifyAddress', 'default', 'value' => false],
+            ['enableCapture', 'boolean'],
+            ['enableCapture', 'default', 'value' => true],
             ['defaultShippingTic', 'string'],
             ['defaultShippingTic', 'default', 'value' => '11010'],
         ];

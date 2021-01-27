@@ -1,0 +1,90 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{#
+/**
+ * TaxCloud plugin for Craft CMS 3.x
+ *
+ * TaxCloud Settings.twig
+ *
+ * @author    adsf
+ * @copyright Copyright (c) 2021 adsf
+ * @link      http://google.com
+ * @package   Test
+ * @since     1.0.0
+ */
+#}
+
+{% import "_includes/forms" as forms %}
+
+{% macro configWarning(setting) -%}
+    {%- set configArray = craft.app.config.getConfigFromFile("taxcloud") -%}
+    {%- if configArray[setting] is defined -%}
+        {{- "This is being overridden by the <code>#{setting}</code> setting in the <code>config/taxcloud.php</code> file."|raw }}
+    {%- endif -%}
+{%- endmacro %}
+
+{% from _self import configWarning %}
+
+<h2>Plugin Settings</h2>
+
+{{ forms.lightswitchField({
+    label: 'Verify Address',
+    id: 'verifyAddress',
+    name: 'verifyAddress',
+    instructions: 'Enable to verify addresses via the TaxCloud api.',
+    on: settings['verifyAddress'],
+    errors: settings.getErrors('verifyAddress')})
+}}
+
+{% if configWarning('verifyAddress') %}
+	<p class="warning with-icon">{{ configWarning('verifyAddress') }}</p>
+{% endif %}
+
+<hr>
+
+{{ forms.lightswitchField({
+    label: 'Authorize and Capture',
+    instructions: 'Enable to record the transaction for reporting with TaxCloud.',
+    id: 'enableCapture',
+    name: 'enableCapture',
+    on: settings['enableCapture'],
+    errors: settings.getErrors('enableCapture')})
+}}
+
+{% if configWarning('enableCapture') %}
+	<p class="warning with-icon">{{ configWarning('enableCapture') }}</p>
+{% endif %}
+
+<hr>
+
+{{ forms.textField({
+    label: 'Default Shipping TIC',
+    instructions: 'Set a default Shipping [TaxCloud TIC](https://taxcloud.com/tic)',
+    id: 'defaultShippingTic',
+    name: 'defaultShippingTic',
+    value: settings['defaultShippingTic'],
+    warning: configWarning('defaultShippingTic'),
+    errors: settings.getErrors('defaultShippingTic')})
+}}
+
+<hr>
+
+<h2>API Settings</h2>
+<p>Enter your TaxCloud API credentials. <a href="{{ actionUrl('taxcloud/categories/ping') }}" target="_blank" rel="noopener">Test connection</a>.</p>
+
+{{ forms.textField({
+    label: 'API Id',
+    id: 'apiId',
+    name: 'apiId',
+    value: settings['apiId'],
+    warning: configWarning('apiId'),
+    errors: settings.getErrors('apiId')})
+}}
+
+{{ forms.textField({
+    label: 'API Key',
+    id: 'apiKey',
+    name: 'apiKey',
+    value: settings['apiKey'],
+    warning: configWarning('apiKey'),
+    errors: settings.getErrors('apiKey')})
+}}

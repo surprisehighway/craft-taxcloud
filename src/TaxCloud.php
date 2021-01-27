@@ -73,7 +73,7 @@ class TaxCloud extends Plugin
      *
      * @var bool
      */
-    public $hasCpSettings = false;
+    public $hasCpSettings = true;
 
     /**
      * Set to `true` if the plugin should have its own section (main nav item) in the control panel.
@@ -118,6 +118,12 @@ class TaxCloud extends Plugin
 
                 if ($country !== 'US') {
                     $message = 'Order ' . $order->number . ': Skipping tax capture for non-US destination.';
+                    Craft::info($message, __METHOD__);
+                    return;
+                }
+
+                if($this->getSettings()->enableCapture === false) {
+                    $message = 'Order ' . $order->number . ': Tax capture is disabled.';
                     Craft::info($message, __METHOD__);
                     return;
                 }
@@ -171,11 +177,29 @@ class TaxCloud extends Plugin
     }
 
     /**
-     * @inheritdoc
+     * Creates and returns the model used to store the plugin’s settings.
+     *
+     * @return \craft\base\Model|null
      */
     protected function createSettingsModel()
     {
         return new Settings();
+    }
+
+    /**
+     * Returns the rendered settings HTML, which will be inserted into the content
+     * block on the settings page.
+     *
+     * @return string The rendered settings HTML
+     */
+    protected function settingsHtml(): string
+    {
+        return Craft::$app->view->renderTemplate(
+            'taxcloud/settings',
+            [
+                'settings' => $this->getSettings()
+            ]
+        );
     }
 
     /**
