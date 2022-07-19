@@ -11,12 +11,13 @@
 namespace surprisehighway\taxcloud\engines;
 
 use Craft;
+use craft\base\Component;
 use craft\commerce\base\TaxEngineInterface;
 use surprisehighway\taxcloud\adjusters\TaxCloud as TaxCloudAdjuster;
 use surprisehighway\taxcloud\web\assets\TaxCloud as TaxCloudAsset;
 
 
-class TaxCloud implements TaxEngineInterface
+class TaxCloud extends Component implements TaxEngineInterface
 {
 	/**
      * @inheritDoc

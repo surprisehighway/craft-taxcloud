@@ -15,7 +15,7 @@ use craft\base\Component;
 use craft\commerce\adjusters\Shipping;
 use craft\commerce\base\AdjusterInterface;
 use craft\commerce\elements\Order;
-use craft\commerce\models\Address;
+use craft\elements\Address;
 use craft\commerce\models\OrderAdjustment;
 use craft\commerce\Plugin;
 use GuzzleHttp\Exception\RequestException;
@@ -61,7 +61,7 @@ class TaxCloud extends Component implements AdjusterInterface
 		// Notes: - Estimated shipping address fails without a City
 		//        - TaxCloud only supports address verification and tax lookup for US destinations
 
-		$country = (isset($this->_address)) ? $this->_address->getCountry()->iso : 'US';
+		$country = (isset($this->_address)) ? $this->_address->getCountryCode() : 'US';
 
 		if (!$this->_address || $country !== 'US' || empty($order->getLineItems())) {
 			return [];
@@ -113,11 +113,11 @@ class TaxCloud extends Component implements AdjusterInterface
 		}
 
 		if($this->_address) {
-			$address .= $this->_address->address1;
-			$address .= $this->_address->address2;
-			$address .= $this->_address->zipCode;
-			$address .= $this->_address->getState()->abbreviation ?? '';
-			$address .= $this->_address->getCountry()->iso ?? '';
+			$address .= $this->_address->getAddressLine1();
+			$address .= $this->_address->getAddressLine2();
+			$address .= $this->_address->getPostalCode();
+			$address .= $this->_address->getAdministrativeArea();
+			$address .= $this->_address->getCountryCode();
 		}
 
 		return md5($number . ':' . $lineItems . ':' . $address . ':' . $shipping . ':' . $discount . ':'  . $price);
@@ -141,7 +141,7 @@ class TaxCloud extends Component implements AdjusterInterface
 	private function _getSalesTax()
 	{
 		$orderHash = $this->_getOrderHash();
-		$storeLocation = Plugin::getInstance()->getAddresses()->getStoreLocationAddress();
+		$storeLocation = Plugin::getInstance()->getStore()->getStore()->getLocationAddress();
 
 		// Cart line items
 		$lineItems = [];
@@ -195,12 +195,12 @@ class TaxCloud extends Component implements AdjusterInterface
 					"deliveredBySeller" => false,
 					"destination" => $this->_getAddress(),
 					"origin" => [
-						"Address1" => $storeLocation->address1 ?? '',
-						"Address2" => $storeLocation->address2 ?? '',
-						"City" => $storeLocation->city ?? '',
-						"State" => $storeLocation->getState()->abbreviation ?? '',
-						"Zip4" => $storeLocation->zipCode ? AddressHelper::getZip4($storeLocation->zipCode) : '',
-						"Zip5" => $storeLocation->zipCode ? AddressHelper::getZip5($storeLocation->zipCode) : '',
+						"Address1" => $storeLocation->getAddressLine1(),
+						"Address2" => $storeLocation->getAddressLine2(),
+						"City" => $storeLocation->getLocality(),
+						"State" => $storeLocation->getAdministrativeArea(),
+						"Zip4" => $storeLocation->getPostalCode() ? AddressHelper::getZip4($storeLocation->getPostalCode()) : '',
+						"Zip5" => $storeLocation->getPostalCode() ? AddressHelper::getZip5($storeLocation->getPostalCode()) : '',
 					]
 				]);
 
@@ -244,11 +244,11 @@ class TaxCloud extends Component implements AdjusterInterface
 		$address = '';
 
 		if($this->_address) {
-			$address .= $this->_address->address1;
-			$address .= $this->_address->address2;
-			$address .= $this->_address->zipCode;
-			$address .= $this->_address->getState()->abbreviation ?? '';
-			$address .= $this->_address->getCountry()->iso ?? '';
+			$address .= $this->_address->getAddressLine1();
+			$address .= $this->_address->getAddressLine2();
+			$address .= $this->_address->getPostalCode();
+			$address .= $this->_address->getAdministrativeArea();
+			$address .= $this->_address->getCountryCode();
 		}
 
 		return md5($number . ':' . $address . ':');
@@ -265,12 +265,12 @@ class TaxCloud extends Component implements AdjusterInterface
 		$cacheKey = 'taxcloud-address-' . $addressHash;
 
 		$address = [
-			"Address1" => $this->_address->address1 ?? '',
-			"Address2" => $this->_address->address2 ?? '',
-			"City" => $this->_address->city ?? '',
-			"State" => $this->_address->getState()->abbreviation ?? '',
-			"Zip4" => $this->_address->zipCode ? AddressHelper::getZip4($this->_address->zipCode) : '',
-			"Zip5" => $this->_address->zipCode ? AddressHelper::getZip5($this->_address->zipCode) : '',
+			"Address1" => $this->_address->getAddressLine1(),
+			"Address2" => $this->_address->getAddressLine2(),
+			"City" => $this->_address->getLocality(),
+			"State" => $this->_address->getAdministrativeArea(),
+			"Zip4" => $this->_address->getPostalCode() ? AddressHelper::getZip4($this->_address->getPostalCode()) : '',
+			"Zip5" => $this->_address->getPostalCode() ? AddressHelper::getZip5($this->_address->getPostalCode()) : '',
 		];
 
 		$this->_verifiedAddress = $address;

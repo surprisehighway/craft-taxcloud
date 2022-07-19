@@ -18,7 +18,7 @@ use craft\web\UrlManager;
 use craft\events\RegisterUrlRulesEvent;
 use craft\commerce\elements\Order;
 use craft\commerce\events\TaxEngineEvent;
-use craft\commerce\models\Address;
+use craft\elements\Address;
 use craft\commerce\Plugin as CommercePlugin;
 use craft\commerce\services\Taxes;
 use surprisehighway\taxcloud\services\Api;
@@ -114,7 +114,7 @@ class TaxCloud extends Plugin
                 // @var Order $order
                 $order = $event->sender;
 
-                $country = (isset($this->_address)) ? $this->_address->getCountry()->iso : 'US';
+                $country = $order->getShippingAddress();
 
                 if ($country !== 'US') {
                     $message = 'Order ' . $order->number . ': Skipping tax capture for non-US destination.';
@@ -155,13 +155,6 @@ class TaxCloud extends Plugin
                 }
             }
         );
-
-
-        // Keep our log files separate for debugging
-        Craft::getLogger()->dispatcher->targets[] = new \craft\log\FileTarget([
-            'logFile' => '@storage/logs/taxcloud.log',
-            'categories' => ['surprisehighway\taxcloud\*']
-        ]);
     }
 
 
