@@ -83,7 +83,7 @@ class TaxCloud extends Component implements TaxEngineInterface
     {
         Craft::$app->getView()->registerAssetBundle(TaxCloudAsset::class);
 
-        return '<a href="#" class="taxcloud-sync-categories-btn btn reload icon">Sync TaxCloud Categories</a>';
+        return '<div id="taxcloud-sync-categories-spinner" class="spinner hidden"></div><a href="#" id="taxcloud-sync-categories-btn" class="btn reload icon">Sync TaxCloud Categories</a>';
     }
 
     /**

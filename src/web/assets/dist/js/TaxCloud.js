@@ -1,5 +1,6 @@
 (function($) {
-    $('.taxcloud-sync-categories-btn').first().click(function(event) {
+    $('#taxcloud-sync-categories-btn').click(function(event) {
+        $('#taxcloud-sync-categories-spinner').toggleClass('hidden');
         Craft.postActionRequest('taxcloud/categories/sync', {}, function(response) {
             console.log(response);
             if (response.success) {
@@ -8,6 +9,7 @@
             } else {
                 Craft.cp.displayError('Categories update failed.');
             }
+            $('#taxcloud-sync-categories-spinner').toggleClass('hidden');
         });
     });
 })(jQuery);
