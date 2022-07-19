@@ -11,12 +11,13 @@
 namespace surprisehighway\taxcloud\engines;
 
 use Craft;
+use craft\base\Component;
 use craft\commerce\base\TaxEngineInterface;
 use surprisehighway\taxcloud\adjusters\TaxCloud as TaxCloudAdjuster;
 use surprisehighway\taxcloud\web\assets\TaxCloud as TaxCloudAsset;
 
 
-class TaxCloud implements TaxEngineInterface
+class TaxCloud extends Component implements TaxEngineInterface
 {
 	/**
      * @inheritDoc
@@ -82,7 +83,7 @@ class TaxCloud implements TaxEngineInterface
     {
         Craft::$app->getView()->registerAssetBundle(TaxCloudAsset::class);
 
-        return '<a href="#" class="taxcloud-sync-categories-btn btn reload icon">Sync TaxCloud Categories</a>';
+        return '<div id="taxcloud-sync-categories-spinner" class="spinner hidden"></div><a href="#" id="taxcloud-sync-categories-btn" class="btn reload icon">Sync TaxCloud Categories</a>';
     }
 
     /**

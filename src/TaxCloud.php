@@ -18,7 +18,7 @@ use craft\web\UrlManager;
 use craft\events\RegisterUrlRulesEvent;
 use craft\commerce\elements\Order;
 use craft\commerce\events\TaxEngineEvent;
-use craft\commerce\models\Address;
+use craft\elements\Address;
 use craft\commerce\Plugin as CommercePlugin;
 use craft\commerce\services\Taxes;
 use surprisehighway\taxcloud\services\Api;
@@ -66,21 +66,21 @@ class TaxCloud extends Plugin
      *
      * @var string
      */
-    public $schemaVersion = '1.0.0';
+    public string $schemaVersion = '1.0.0';
 
     /**
      * Set to `true` if the plugin should have a settings view in the control panel.
      *
      * @var bool
      */
-    public $hasCpSettings = true;
+    public bool $hasCpSettings = true;
 
     /**
      * Set to `true` if the plugin should have its own section (main nav item) in the control panel.
      *
      * @var bool
      */
-    public $hasCpSection = false;
+    public bool $hasCpSection = false;
 
     // Public Methods
     // =========================================================================
@@ -114,7 +114,7 @@ class TaxCloud extends Plugin
                 // @var Order $order
                 $order = $event->sender;
 
-                $country = (isset($this->_address)) ? $this->_address->getCountry()->iso : 'US';
+                $country = $order->getShippingAddress();
 
                 if ($country !== 'US') {
                     $message = 'Order ' . $order->number . ': Skipping tax capture for non-US destination.';
@@ -155,13 +155,6 @@ class TaxCloud extends Plugin
                 }
             }
         );
-
-
-        // Keep our log files separate for debugging
-        Craft::getLogger()->dispatcher->targets[] = new \craft\log\FileTarget([
-            'logFile' => '@storage/logs/taxcloud.log',
-            'categories' => ['surprisehighway\taxcloud\*']
-        ]);
     }
 
 
@@ -181,7 +174,7 @@ class TaxCloud extends Plugin
      *
      * @return \craft\base\Model|null
      */
-    protected function createSettingsModel()
+    protected function createSettingsModel(): ?\craft\base\Model
     {
         return new Settings();
     }
@@ -192,7 +185,7 @@ class TaxCloud extends Plugin
      *
      * @return string The rendered settings HTML
      */
-    protected function settingsHtml(): string
+    protected function settingsHtml(): ?string
     {
         return Craft::$app->view->renderTemplate(
             'taxcloud/settings',

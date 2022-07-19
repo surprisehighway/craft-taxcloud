@@ -2,7 +2,7 @@
     "name": "surprisehighway/craft-taxcloud",
     "description": "TaxCloud integration for Craft Commerce",
     "type": "craft-plugin",
-    "version": "1.0.6",
+    "version": "2.0.0",
     "keywords": [
         "craft",
         "cms",
@@ -22,8 +22,8 @@
         }
     ],
     "require": {
-        "craftcms/cms": "^3.4.0",
-        "craftcms/commerce": "^3.1.0"
+        "craftcms/cms": "^4.0.0",
+        "craftcms/commerce": "^4.0.0"
     },
     "autoload": {
         "psr-4": {
@@ -41,5 +41,16 @@
             "api": "surprisehighway\\taxcloud\\services\\Api"
         },
         "class": "surprisehighway\\taxcloud\\TaxCloud"
+    },
+    "config": {
+        "allow-plugins": {
+            "craftcms/plugin-installer": true,
+            "yiisoft/yii2-composer": true
+        },
+        "sort-packages": true,
+        "optimize-autoloader": true,
+        "platform": {
+            "php": "8.0.2"
+        }
     }
 }
