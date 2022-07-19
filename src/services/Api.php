@@ -71,7 +71,7 @@ class Api extends Component
      *
      * @return mixed
      */
-    public function init()
+    public function init(): void
     {
         $this->apiId = TaxCloud::$plugin->getSettings()->apiId;
         $this->apiKey = TaxCloud::$plugin->getSettings()->apiKey;
