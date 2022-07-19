@@ -1,6 +1,6 @@
 <img src="resources/img/plugin-logo.png" width="130" height="90" alt="TaxCloud logo">
 
-# TaxCloud plugin for Craft CMS 3.x
+# TaxCloud plugin for Craft CMS 4.x
 
 TaxCloud integration for Craft Commerce
 
@@ -8,7 +8,7 @@ TaxCloud integration for Craft Commerce
 
 ## Requirements
 
-This plugin requires Craft Commerce (Pro edition) 3.1 or later.
+This plugin requires Craft Commerce (Pro edition) 4.0 or later.
 
 ## Installation
 
